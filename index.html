@@ -4974,9 +4974,13 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 			}
 		}
 	});
+var elm$json$Json$Decode$field = _Json_decodeField;
 var elm$json$Json$Decode$list = _Json_decodeList;
 var elm$json$Json$Decode$string = _Json_decodeString;
-var author$project$Main$metaFieldDecoder = elm$json$Json$Decode$list(elm$json$Json$Decode$string);
+var author$project$Main$metaFieldDecoder = A2(
+	elm$json$Json$Decode$field,
+	'metafields',
+	elm$json$Json$Decode$list(elm$json$Json$Decode$string));
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
