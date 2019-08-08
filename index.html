@@ -5932,6 +5932,7 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 			return 3;
 	}
 };
+var elm$html$Html$p = _VirtualDom_node('p');
 var elm$html$Html$pre = _VirtualDom_node('pre');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
@@ -5944,9 +5945,16 @@ var author$project$Main$view = function (model) {
 		default:
 			var fullText = model.a;
 			return A2(
-				elm$html$Html$pre,
+				elm$html$Html$p,
 				_List_Nil,
-				A2(elm$core$List$map, elm$html$Html$text, fullText));
+				_List_fromArray(
+					[
+						elm$html$Html$text('Metafields: '),
+						A2(
+						elm$html$Html$pre,
+						_List_Nil,
+						A2(elm$core$List$map, elm$html$Html$text, fullText))
+					]));
 	}
 };
 var elm$browser$Browser$External = function (a) {
