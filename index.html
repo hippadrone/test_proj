@@ -1,13 +1,42 @@
 <html>
     <head>
         <title>Meta Magic</title>
+        <script src="https://unpkg.com/@shopify/app-bridge"></script>
         <script src="elm.js"></script>
     </head>
 
     <body>
         <div id="elm"></div>
         <script>
-            var app = Elm.Main.init({node: document.getElementById('elm')});
+            var AppBridge = window['app-bridge'];
+            var createApp = AppBridge.createApp;
+            var actions = window['app-bridge'].actions;
+            var Redirect = actions.Redirect;
+
+            const apiKey = '2d81958e08e32d1ebc4087c2abc1d9d3';
+            const redirectUri = 'https://hippadrone.github.io/test_proj/redirectUri';
+
+            const permissionUrl = '/oauth/authorize?client_id=' + apiKey + '&scope=read_products,read_content&redirect_uri=' + redirectUri;
+
+            // If the current window is the parent, change
+            // the URL by setting Location.href
+            if (window.top == window.self) {
+                window.location.assign('https://' + shopOrigin + '/admin' + permissionUrl);
+            
+            // If the current window is the child, change the parent's
+            // URL with Shopify App Bridge's Redirect action
+
+            } else {
+                const app = createApp({
+                    apiKey: apiKey,
+                    shopOrigin: shopOrigin,
+                });
+
+            Redirect.create(app).dispatch(Redirect.Action.ADMIN_PATH, permissionUrl);
+            }
+
+
+            var elmApp = Elm.Main.init({node: document.getElementById('elm')});
         </script>
     </body>
 
